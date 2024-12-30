@@ -1,12 +1,19 @@
-import express from 'express';
+const express = require("express");
+const dotenv = require("dotenv");
+const AppDataSource = require("./data-source");
+const router = require("./routes/weather");
+
+dotenv.config();
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  const name = process.env.NAME || 'World';
-  res.send(`Hello ${name}!`);
-});
+app.use(express.json());
+app.use(router);
+// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-const port = parseInt(process.env.PORT) || 3000;
-app.listen(port, () => {
-  console.log(`listening on port ${port}`);
-});
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Database connected!");
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
+  .catch((error) => console.error("Database connection error"));
