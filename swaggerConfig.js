@@ -9,11 +9,11 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://127.0.0.1:3000/api", // آدرس سرور خود را تنظیم کنید
+        url: "http://127.0.0.1:3000/api",
       },
     ],
   },
-  apis: ["./src/interface/routes/*.js"], // مسیر فایل‌هایی که حاوی داکیومنت Swagger هستند
+  apis: ["./src/interface/routes/*.js"],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
