@@ -1,6 +1,6 @@
 const express = require("express");
 const axios = require("axios");
-const AppDataSource = require("../data-source");
+const AppDataSource = require("../infrastructure/database/config");
 const Weather = require("../entity/Weather");
 
 const router = express.Router();
@@ -9,7 +9,6 @@ const weatherRepository = AppDataSource.getRepository(Weather);
 // POST /weather - Fetch and save weather data
 router.post("/weather", async (req, res) => {
   const { cityName, country } = req.body;
-  console.log(cityName);
   const apiKey = process.env.API_KEY;
   
   try {
