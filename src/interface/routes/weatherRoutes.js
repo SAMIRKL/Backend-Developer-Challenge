@@ -1,8 +1,8 @@
 const express = require("express");
 const WeatherController = require("../controllers/WeatherController");
+const authMiddleware = require("../../application/middlewares/authMiddleware");
 
 const router = express.Router();
-
 
 /**
  * @swagger
@@ -170,6 +170,8 @@ const router = express.Router();
  */
 
 
+router.use(authMiddleware);
+
 // POST /weather - Fetch and save weather data
 router.post("/weather", WeatherController.createWeather);
 
@@ -181,7 +183,6 @@ router.get("/weather/:id", WeatherController.getWeatherById);
 
 // GET /weather/latest/:cityName - Retrieve the latest weather data for a specific city
 router.get("/weather/latest/:cityName", WeatherController.getLatestWeatherByCity);
-
 
 // PUT /weather/:id - Update a specific weather record
 router.put("/weather/:id", WeatherController.updateWeatherById);
